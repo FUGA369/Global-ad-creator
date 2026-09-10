@@ -518,3 +518,39 @@ screen10 = function() {
 // 画面を再描画
 render();
 // --- ここまで ---
+// --- ここからコピー（app.jsの一番下に追加） ---
+const mobileStyle = document.createElement('style');
+mobileStyle.innerHTML = `
+    /* スマホの縦画面（幅が768px以下）の時のレイアウト変更 */
+    @media (max-width: 768px) {
+        /* エディタ画面の左・右を1列（縦積み）にする */
+        .editor-layout { 
+            grid-template-columns: 1fr !important; 
+        }
+        
+        /* A/Bテストの比較（パターンA・B）を縦に並べる */
+        div[style*="display: flex; gap: 20px;"] { 
+            flex-direction: column !important; 
+        }
+        
+        /* 出力画面のプラットフォーム選択を縦に並べる */
+        .destinations, .options { 
+            grid-template-columns: 1fr !important; 
+        }
+        
+        /* 3列の数字データ（CTRなど）を縦に並べる */
+        .grid.three { 
+            grid-template-columns: 1fr !important; 
+        }
+        
+        /* チャット画面の高さをスマホに合わせて少し縮める */
+        .chat-panel { 
+            height: 300px !important; 
+        }
+        
+        /* サイドバー（メニュー）が出ている時はメイン画面を圧迫しないようにする */
+        .main { margin-left: 0 !important; padding-top: 60px; }
+    }
+`;
+document.head.appendChild(mobileStyle);
+// --- ここまで ---
